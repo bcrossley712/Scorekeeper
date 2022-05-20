@@ -6,7 +6,9 @@ export const GameSchema = new Schema(
   {
     title: { type: String, required: true },
     image: { type: String, required: true },
-    creatorId: { type: ObjectId, required: true, ref: 'Profile' }
+    creatorId: { type: ObjectId, required: true, ref: 'Profile' },
+    highScore: { type: Number },
+    bestPlayer: { type: String }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
