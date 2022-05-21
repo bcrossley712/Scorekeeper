@@ -1,7 +1,13 @@
 <template>
   <div class="session container-fluid">
     <div class="row">
-      <div class="col-sm-12 col">
+      <div class="col">
+        <GamePlayer />
+      </div>
+      <div class="col">
+        <GamePlayer />
+      </div>
+      <div class="col">
         <GamePlayer />
       </div>
     </div>

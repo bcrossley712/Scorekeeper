@@ -2,11 +2,10 @@
   <div class="row">
     <div class="col-12 d-flex flex-column">
       <h5>Player Name</h5>
-      <span>hands</span>
-      <span>hands</span>
-      <span>hands</span>
-      <span>hands</span>
-      <span>hands</span>
+      <Hand />
+      <Hand />
+      <Hand />
+      <Hand />
     </div>
   </div>
 </template>
