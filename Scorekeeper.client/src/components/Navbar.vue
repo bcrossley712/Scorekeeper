@@ -25,6 +25,18 @@
           >
             About
           </router-link>
+          <router-link
+            :to="{ name: 'Game' }"
+            class="btn text-success lighten-30 selectable text-uppercase"
+          >
+            Game
+          </router-link>
+          <router-link
+            :to="{ name: 'Session' }"
+            class="btn text-success lighten-30 selectable text-uppercase"
+          >
+            Session
+          </router-link>
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
