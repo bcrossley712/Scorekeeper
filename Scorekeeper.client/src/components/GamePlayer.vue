@@ -6,6 +6,7 @@
       <Hand />
       <Hand />
       <Hand />
+      <h5>Total score</h5>
     </div>
   </div>
 </template>

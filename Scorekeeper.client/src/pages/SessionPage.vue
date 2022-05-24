@@ -1,13 +1,40 @@
 <template>
   <div class="session container-fluid">
     <div class="row">
-      <div class="col">
+      <div class="col-6 col-sm-4 col-md-2">
         <GamePlayer />
       </div>
-      <div class="col">
+      <div class="col-6 col-sm-4 col-md-2">
         <GamePlayer />
       </div>
-      <div class="col">
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
+        <GamePlayer />
+      </div>
+      <div class="col-6 col-sm-4 col-md-2">
         <GamePlayer />
       </div>
     </div>
