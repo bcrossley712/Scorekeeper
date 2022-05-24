@@ -1,12 +1,17 @@
 <template>
-  <div class="row">
+  <div class="row p-2">
     <div class="col-12 d-flex flex-column">
       <h5>Player Name</h5>
+      <div class="row">
+        <div class="col-3 p-0">BID</div>
+        <div class="col-3 p-0">TAKE</div>
+        <div class="col-6 p-0">SCORE</div>
+      </div>
       <Hand />
       <Hand />
       <Hand />
       <Hand />
-      <h5>Total score</h5>
+      <h5>Total</h5>
     </div>
   </div>
 </template>
