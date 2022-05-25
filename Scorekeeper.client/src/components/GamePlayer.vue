@@ -22,6 +22,12 @@ import { ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 export default {
+  // props: {
+  //   gamePlayer: {
+  //     type: Object,
+  //     required: true
+  //   }
+  // },
   setup() {
     return {}
   }

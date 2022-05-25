@@ -1,6 +1,12 @@
 <template>
   <div class="session container-fluid">
     <div class="row">
+      <div class="col-12">
+        <button class="btn btn-primary">Add Player</button>
+      </div>
+    </div>
+    <!-- NOTE will I be able to add an empty hand for all players? If so where does that button belong? Will I have to add a hand for each player/each round?  -->
+    <div class="row">
       <div class="col-6 col-sm-4 col-md-2">
         <GamePlayer />
       </div>
