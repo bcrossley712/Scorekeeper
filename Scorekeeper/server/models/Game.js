@@ -5,7 +5,7 @@ const ObjectId = mongoose.Types.ObjectId
 export const GameSchema = new Schema(
   {
     title: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String },
     creatorId: { type: ObjectId, required: true, ref: 'Profile' },
     highScore: { type: Number },
     bestPlayer: { type: String }

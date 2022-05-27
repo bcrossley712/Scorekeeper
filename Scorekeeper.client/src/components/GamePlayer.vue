@@ -7,6 +7,11 @@
         <div class="col-3 p-0">TAKE</div>
         <div class="col-6 p-0">SCORE</div>
       </div>
+      <div class="row">
+        <div class="col-12">
+          <!-- TODO for each hand -->
+        </div>
+      </div>
       <Hand />
       <Hand />
       <Hand />

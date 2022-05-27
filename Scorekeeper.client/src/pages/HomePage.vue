@@ -7,16 +7,16 @@
     </div>
     <div class="row px-2">
       <div class="col-3 p-2">
-        <!-- NOTE Card images for each game. On click will take to game page. Add ability to have a 'blank' game with just ability to add players and scores. -->
+        <!-- TODO Card images for each game. On click will take to game page. Add ability to have a 'blank' game with just ability to add players and scores. -->
         <img
-          class="img-fluid"
+          class="img-fluid selectable"
           src="../assets/img/All.jpg"
           alt="Game of All image"
         />
       </div>
       <div class="col-3 p-2">
         <img
-          class="img-fluid"
+          class="img-fluid selectable"
           src="../assets/img/Rook.png"
           alt="Game of Rook image"
         />

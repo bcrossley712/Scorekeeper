@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO this page will need to have an id on the route param -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
@@ -7,7 +8,10 @@
     </div>
     <div class="row">
       <div class="col-6">Game Rules</div>
-      <div class="col-6">Game History</div>
+      <div class="col-6">
+        <!-- TODO for each session -->
+        Game History
+      </div>
     </div>
   </div>
 </template>

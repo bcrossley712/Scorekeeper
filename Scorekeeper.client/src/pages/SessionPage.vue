@@ -7,6 +7,7 @@
     </div>
     <!-- NOTE will I be able to add an empty hand for all players? If so where does that button belong? Will I have to add a hand for each player/each round?  -->
     <div class="row">
+      <!-- TODO for each player -->
       <div class="col-6 col-sm-4 col-md-2">
         <GamePlayer />
       </div>
