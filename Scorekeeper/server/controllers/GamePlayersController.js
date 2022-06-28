@@ -1,7 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController";
 
-class GamePlayersController extends BaseController {
+export class GamePlayersController extends BaseController {
   constructor() {
     super("api/gameplayers");
     this.router

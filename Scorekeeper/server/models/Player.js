@@ -6,6 +6,7 @@ export const PlayerSchema = new Schema(
   {
     name: { type: String, required: true },
     creatorId: { type: ObjectId, required: true, ref: 'Profile' },
+    sessionId: { type: ObjectId, required: true, ref: 'Session' },
     img: { type: String }
   },
   { timestamps: true, toJSON: { virtuals: true } }
@@ -16,4 +17,10 @@ PlayerSchema.virtual('creator', {
   foreignField: '_id',
   justOne: true,
   ref: 'Profile'
+})
+PlayerSchema.virtual('session', {
+  localField: 'sessionId',
+  foreignField: '_id',
+  justOne: true,
+  ref: 'Session'
 })

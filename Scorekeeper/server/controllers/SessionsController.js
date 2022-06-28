@@ -1,7 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import BaseController from "../utils/BaseController";
 
-class SessionsController extends BaseController {
+export class SessionsController extends BaseController {
   constructor() {
     super("api/sessions");
     this.router
