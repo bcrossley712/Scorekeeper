@@ -3,7 +3,7 @@ import BaseController from "../utils/BaseController";
 
 class SessionsController extends BaseController {
   constructor() {
-    super("api/games");
+    super("api/sessions");
     this.router
       .get('', this.getAll)
       .get('/:id', this.getById)
