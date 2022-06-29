@@ -7,7 +7,7 @@ export const PlayerSchema = new Schema(
     name: { type: String, required: true },
     creatorId: { type: ObjectId, required: true, ref: 'Profile' },
     sessionId: { type: ObjectId, required: true, ref: 'Session' },
-    img: { type: String }
+    picture: { type: String }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

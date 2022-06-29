@@ -1,4 +1,5 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
+import { playersService } from "../services/PlayersService";
 import { sessionsService } from "../services/SessionsService";
 import BaseController from "../utils/BaseController";
 
@@ -15,7 +16,9 @@ export class SessionsController extends BaseController {
   }
   async getSessionsPlayers(req, res, next) {
     try {
-      throw new Error("Method not implemented.");
+      const sessionId = req.params.id
+      const players = await playersService.getSessionsPlayers(sessionId)
+      return res.send(players)
     } catch (error) {
       next(error)
     }
