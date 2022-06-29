@@ -5,7 +5,9 @@ const ObjectId = mongoose.Types.ObjectId
 export const SessionSchema = new Schema(
   {
     gameId: { type: String, required: true, ref: 'Game' },
-    creatorId: { type: ObjectId, required: true, ref: 'Profile' }
+    creatorId: { type: ObjectId, required: true, ref: 'Profile' },
+    archived: { type: Boolean, default: false },
+    winner: { type: String }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

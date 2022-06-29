@@ -1,17 +1,27 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { gamesService } from "../services/GamesService";
+import { sessionsService } from "../services/SessionsService";
 import BaseController from "../utils/BaseController";
 
 export class GamesController extends BaseController {
   constructor() {
     super("api/games")
     this.router
+      .get('/:id/sessions', this.getGamesSessions)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.update)
       .delete('/:id', this.delete)
+  }
+  async getGamesSessions(req, res, next) {
+    try {
+      const sessions = await sessionsService.getGamesSessions(req.params.id)
+      return res.send(sessions)
+    } catch (error) {
+      next(error);
+    }
   }
   async getAll(req, res, next) {
     try {

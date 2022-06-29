@@ -4,9 +4,9 @@ const ObjectId = mongoose.Types.ObjectId
 
 export const HandSchema = new Schema(
   {
-    bid: { type: Number },
-    achieved: { type: Number },
-    score: { type: Number },
+    bid: { type: Number, default: 0 },
+    achieved: { type: Number, default: 0 },
+    score: { type: Number, default: 0 },
     playerId: { type: ObjectId, required: true, ref: 'Player' },
     creatorId: { type: ObjectId, required: true, ref: 'Profile' }
   },
