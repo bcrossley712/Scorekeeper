@@ -5,7 +5,7 @@ import BaseController from "../utils/BaseController";
 
 export class PlayersController extends BaseController {
   constructor() {
-    super("api/gamePlayers")
+    super("api/players")
     this.router
       .get('/:id/hands', this.getPlayersHands)
       .get('/:id', this.getById)
