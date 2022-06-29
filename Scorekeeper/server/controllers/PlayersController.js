@@ -5,14 +5,14 @@ import BaseController from "../utils/BaseController";
 
 export class PlayersController extends BaseController {
   constructor() {
-    super("api/players");
+    super("api/gamePlayers")
     this.router
       .get('/:id/hands', this.getPlayersHands)
       .get('/:id', this.getById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.update)
-      .delete('/:id', this.delete);
+      .delete('/:id', this.delete)
   }
   async getPlayersHands(req, res, next) {
     try {
