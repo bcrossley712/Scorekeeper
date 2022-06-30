@@ -12,7 +12,7 @@
           @click="goTo(g.id)"
           class="img-fluid selectable"
           :src="g.image"
-          alt="Game of All image"
+          :alt="g.title + ' image'"
         />
       </div>
       <!-- <div class="col-3 p-2">

@@ -1,16 +1,24 @@
 <template>
   <!-- NOTE must be input fields -->
-  <div class="row">
+  <div
+    class="row selectable"
+    data-bs-toggle="modal"
+    :data-bs-target="'#edit-hand' + hand.id"
+  >
     <div class="col-3 p-0 border-dark border">
-      <span class="px-1">bid</span>
+      <span class="px-1">{{ hand.bid }}</span>
     </div>
     <div class="col-3 p-0 border-dark border">
-      <span class="px-1">take</span>
+      <span class="px-1">{{ hand.take }}</span>
     </div>
     <div class="col-6 p-0 border-dark border">
-      <span class="px-1">score</span>
+      <span class="px-1">{{ hand.score }}</span>
     </div>
   </div>
+  <Modal :id="'edit-hand' + hand.id">
+    <template #title>Edit Hand?</template>
+    <template #body><HandEdit :hand="hand" /></template>
+  </Modal>
 </template>
 
 <script>
@@ -28,6 +36,7 @@ export default {
     const editable = ref({})
     return {
       editable
+
     }
   }
 }

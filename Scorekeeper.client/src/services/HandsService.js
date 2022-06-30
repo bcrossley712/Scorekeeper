@@ -8,5 +8,10 @@ class HandsService {
     logger.log("[getSessionsHands]", res.data)
     AppState.hands = res.data
   }
+  async addHand(body) {
+    const res = await api.post(`api/hands`, body)
+    logger.log('[addHand]', res.data)
+    AppState.hands = [...AppState.hands, res.data]
+  }
 }
 export const handsService = new HandsService()
