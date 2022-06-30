@@ -24,7 +24,7 @@ class HandsService {
       throw new Forbidden("You cannot update this hand")
     }
     original.bid = update.bid ? update.bid : update.bid == 0 ? update.bid : original.bid
-    original.achieved = update.achieved ? update.achieved : update.achieved == 0 ? update.achieved : original.achieved
+    original.take = update.take ? update.take : update.take == 0 ? update.take : original.take
     original.score = update.score ? update.score : update.score == 0 ? update.score : original.score
     await original.save()
     await original.populate('player', 'name')

@@ -17,12 +17,12 @@ const routes = [
     component: loadPage('AboutPage')
   },
   {
-    path: '/game',
+    path: '/game/:id',
     name: 'Game',
     component: loadPage('GamePage')
   },
   {
-    path: '/session',
+    path: '/session/:id',
     name: 'Session',
     component: loadPage('SessionPage')
   },

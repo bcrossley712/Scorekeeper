@@ -25,7 +25,7 @@
           >
             About
           </router-link>
-          <router-link
+          <!-- <router-link
             :to="{ name: 'Game' }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
@@ -36,7 +36,7 @@
             class="btn text-success lighten-30 selectable text-uppercase"
           >
             Session
-          </router-link>
+          </router-link> -->
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->
