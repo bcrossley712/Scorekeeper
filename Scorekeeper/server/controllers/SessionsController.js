@@ -1,4 +1,5 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
+import { handsService } from "../services/HandsService";
 import { playersService } from "../services/PlayersService";
 import { sessionsService } from "../services/SessionsService";
 import BaseController from "../utils/BaseController";
@@ -7,12 +8,22 @@ export class SessionsController extends BaseController {
   constructor() {
     super("api/sessions");
     this.router
+      .get('/:id/hands', this.getSessionsHands)
       .get('/:id/players', this.getSessionsPlayers)
       .get('/:id', this.getById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.update)
       .delete('/:id', this.delete);
+  }
+  async getSessionsHands(req, res, next) {
+    try {
+      const sessionId = req.params.id
+      const hands = await handsService.getSessionsHands(sessionId)
+      return res.send(hands)
+    } catch (error) {
+      next(error)
+    }
   }
   async getSessionsPlayers(req, res, next) {
     try {

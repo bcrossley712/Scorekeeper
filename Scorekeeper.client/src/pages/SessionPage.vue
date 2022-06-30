@@ -7,42 +7,8 @@
     </div>
     <!-- NOTE will I be able to add an empty hand for all players? If so where does that button belong? Will I have to add a hand for each player/each round?  -->
     <div class="row">
-      <!-- TODO for each player -->
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
-      </div>
-      <div class="col-6 col-sm-4 col-md-2">
-        <GamePlayer />
+      <div class="col-6 col-sm-4 col-md-2" v-for="p in players" :key="p.id">
+        <Player :player="p" />
       </div>
     </div>
   </div>
@@ -54,10 +20,26 @@ import { computed, ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { AppState } from "../AppState"
+import { onMounted } from "@vue/runtime-core"
+import { sessionsService } from "../services/SessionsService"
+import { useRoute } from "vue-router"
+import { playersService } from "../services/PlayersService";
+import { handsService } from "../services/HandsService";
 export default {
   setup() {
+    const route = useRoute()
+    onMounted(async () => {
+      try {
+        await sessionsService.getSessionById(route.params.id)
+        await playersService.getSessionsPlayers(route.params.id)
+        await handsService.getSessionsHands(route.params.id)
+      } catch (error) {
+        logger.error(error)
+        Pop.toast(error.message, 'error')
+      }
+    })
     return {
-      gameplayers: computed(() => AppState.gameplayers)
+      players: computed(() => AppState.players)
     }
   }
 }

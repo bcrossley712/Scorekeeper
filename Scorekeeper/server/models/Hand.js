@@ -8,7 +8,8 @@ export const HandSchema = new Schema(
     take: { type: Number, default: 0 },
     score: { type: Number, default: 0 },
     playerId: { type: ObjectId, required: true, ref: 'Player' },
-    creatorId: { type: ObjectId, required: true, ref: 'Profile' }
+    creatorId: { type: ObjectId, required: true, ref: 'Profile' },
+    sessionId: { type: ObjectId, required: true, ref: 'Session' }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

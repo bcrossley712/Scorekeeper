@@ -1,16 +1,14 @@
 <template>
-  <!-- TODO this page will need to have an id on the route param -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-primary">New Game</button>
+        <button class="btn btn-primary">New Session</button>
       </div>
     </div>
     <div class="row">
       <div class="col-6">Game Rules</div>
       <div class="col-6 bg-dark p-3">
-        Game History
-        <!-- TODO for each session -->
+        <h4>Game History</h4>
         <div
           @click="goTo(s.id)"
           class="rounded bg-white text-dark p-1 m-2 selectable"

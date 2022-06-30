@@ -2,6 +2,10 @@ import { dbContext } from "../db/DbContext";
 import { BadRequest, Forbidden } from "../utils/Errors";
 
 class HandsService {
+  async getSessionsHands(sessionId) {
+    const hands = await dbContext.Hands.find({ sessionId: sessionId }).populate('player', 'name')
+    return hands
+  }
   async getPlayersHands(playerId) {
     const hands = await dbContext.Hands.find({ playerId: playerId }).populate('player', 'name')
     return hands
