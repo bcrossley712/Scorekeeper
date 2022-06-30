@@ -2,10 +2,9 @@
   <div class="session container-fluid">
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-primary">Add Player</button>
+        <button class="btn btn-primary" @click="addPlayer">Add Player</button>
       </div>
     </div>
-    <!-- NOTE will I be able to add an empty hand for all players? If so where does that button belong? Will I have to add a hand for each player/each round?  -->
     <div class="row">
       <div class="col-6 col-sm-4 col-md-2" v-for="p in players" :key="p.id">
         <Player :player="p" />
@@ -25,21 +24,32 @@ import { sessionsService } from "../services/SessionsService"
 import { useRoute } from "vue-router"
 import { playersService } from "../services/PlayersService";
 import { handsService } from "../services/HandsService";
+import { gamesService } from "../services/GamesService";
 export default {
   setup() {
     const route = useRoute()
     onMounted(async () => {
       try {
+        // FIXME add watcheffect and conditional to change pages with navbar
         await sessionsService.getSessionById(route.params.id)
         await playersService.getSessionsPlayers(route.params.id)
         await handsService.getSessionsHands(route.params.id)
+        await gamesService.getGames()
       } catch (error) {
         logger.error(error)
         Pop.toast(error.message, 'error')
       }
     })
     return {
-      players: computed(() => AppState.players)
+      players: computed(() => AppState.players),
+      async addPlayer() {
+        try {
+          console.error("Not set up");
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      }
     }
   }
 }

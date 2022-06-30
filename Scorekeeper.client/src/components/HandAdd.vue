@@ -37,9 +37,8 @@
           v-model="editable.score"
         />
       </div>
-      <div class="d-flex justify-content-between">
+      <div class="">
         <button class="btn btn-success" @click="handleSubmit">Confirm</button>
-        <button class="btn btn-danger" @click="deleteHand">Delete?</button>
       </div>
     </div>
   </div>
@@ -53,30 +52,20 @@ import { logger } from "../utils/Logger"
 import { watchEffect } from "@vue/runtime-core"
 export default {
   props: {
-    hand: {
+    player: {
       type: Object,
       required: true
     }
   },
   setup(props) {
     const editable = ref({})
-    watchEffect(() => {
-      editable.value = props.hand
-    })
     return {
       editable,
       async handleSubmit() {
         try {
-          console.error("Not set up");
-        } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error')
-        }
-      },
-      async deleteHand() {
-        try {
-          // NOTE don't for get to pop confirm
-          console.error("Not set up");
+          editable.value.playerId = props.player.id
+          editable.value.sessionId = route.params.id
+          await handsService.addHand(editable.value)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

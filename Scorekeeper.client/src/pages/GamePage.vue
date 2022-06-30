@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-primary">New Session</button>
+        <button class="btn btn-primary" @click="newSession">New Session</button>
       </div>
     </div>
     <div class="row">
@@ -38,8 +38,10 @@ export default {
     const router = useRouter()
     onMounted(async () => {
       try {
+        // FIXME add watcheffect and conditional to change pages with navbar
         await gamesService.getGameById(route.params.id)
         await sessionsService.getGamesSessions(route.params.id)
+        await gamesService.getGames()
       } catch (error) {
         logger.error(error)
         Pop.toast(error.message, 'error')
@@ -49,6 +51,14 @@ export default {
       sessions: computed(() => AppState.sessions),
       goTo(id) {
         router.push({ name: "Session", params: { id: id } })
+      },
+      async newSession() {
+        try {
+          console.error("Not set up");
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
       }
     }
   }

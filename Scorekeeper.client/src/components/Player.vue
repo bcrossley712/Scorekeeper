@@ -6,7 +6,8 @@
         <i
           class="mdi mdi-plus selectable text-dark fs-5"
           title="Add hand"
-          @click="addHand"
+          data-bs-toggle="modal"
+          :data-bs-target="'#add-hand' + player.id"
         ></i>
       </div>
       <div class="row border-bottom border-dark">
@@ -22,6 +23,10 @@
       <h5>Total</h5>
     </div>
   </div>
+  <Modal :id="'add-hand' + player.id">
+    <template #title>Add Hand</template>
+    <template #body><HandAdd :player="player" /></template>
+  </Modal>
 </template>
 
 
@@ -45,16 +50,6 @@ export default {
     return {
       editable,
       hands: computed(() => AppState.hands.filter(h => h.playerId == props.player.id)),
-      async addHand() {
-        try {
-          editable.value.playerId = props.player.id
-          editable.value.sessionId = route.params.id
-          await handsService.addHand(editable.value)
-        } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error')
-        }
-      }
     }
   }
 }

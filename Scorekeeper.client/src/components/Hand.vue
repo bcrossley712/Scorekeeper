@@ -1,5 +1,4 @@
 <template>
-  <!-- NOTE must be input fields -->
   <div
     class="row selectable"
     data-bs-toggle="modal"
@@ -33,9 +32,9 @@ export default {
     }
   },
   setup() {
-    const editable = ref({})
+
     return {
-      editable
+
 
     }
   }

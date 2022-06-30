@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <h1>Scorekeeper!</h1>
       </div>
     </router-link>
     <button
@@ -20,18 +20,20 @@
       <ul class="navbar-nav me-auto">
         <li>
           <router-link
+            v-for="g in games"
+            :key="g.id"
+            :to="{ name: 'Game', params: { id: g.id } }"
+            class="btn text-success lighten-30 selectable text-uppercase"
+          >
+            {{ g.title }}
+          </router-link>
+          <router-link
             :to="{ name: 'About' }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
             About
           </router-link>
           <!-- <router-link
-            :to="{ name: 'Game' }"
-            class="btn text-success lighten-30 selectable text-uppercase"
-          >
-            Game
-          </router-link>
-          <router-link
             :to="{ name: 'Session' }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
@@ -46,9 +48,13 @@
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState";
 export default {
   setup() {
-    return {};
+    return {
+      games: computed(() => AppState.games)
+    };
   },
 };
 </script>
