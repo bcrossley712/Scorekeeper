@@ -2,7 +2,13 @@
   <div class="session container-fluid">
     <div class="row">
       <div class="col-12">
-        <button class="btn btn-primary" @click="addPlayer">Add Player</button>
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#player-add"
+        >
+          Add Player
+        </button>
       </div>
     </div>
     <div class="row">
@@ -11,6 +17,10 @@
       </div>
     </div>
   </div>
+  <Modal id="player-add">
+    <template #title>Add Player</template>
+    <template #body><PlayerAdd /></template>
+  </Modal>
 </template>
 
 
@@ -44,7 +54,7 @@ export default {
       players: computed(() => AppState.players),
       async addPlayer() {
         try {
-          console.error("Not set up");
+          playersService.addPlayer(route.params.id)
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

@@ -53,12 +53,7 @@ import { watchEffect } from "@vue/runtime-core"
 import { useRoute } from "vue-router"
 import { handsService } from "../services/HandsService"
 export default {
-  props: {
-    player: {
-      type: Object,
-      required: true
-    }
-  },
+
   setup(props) {
     const editable = ref({})
     const route = useRoute()
@@ -66,7 +61,6 @@ export default {
       editable,
       async handleSubmit() {
         try {
-          editable.value.playerId = props.player.id
           editable.value.sessionId = route.params.id
           await handsService.addHand(editable.value)
         } catch (error) {

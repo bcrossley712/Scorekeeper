@@ -8,8 +8,10 @@ class PlayersService {
     logger.log("[getSessionsPlayers]", res.data)
     AppState.players = res.data
   }
-  async addPlayer() {
-    logger.error('Need to set up')
+  async addPlayer(body) {
+    const res = await api.post(`api/players`, body)
+    logger.log("[addPlayers]", res.data)
+    AppState.players = [...AppState.players, res.data]
   }
 }
 export const playersService = new PlayersService()
