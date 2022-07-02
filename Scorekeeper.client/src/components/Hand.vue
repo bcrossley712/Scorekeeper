@@ -24,6 +24,7 @@
 import { ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
+import { watchEffect } from "@vue/runtime-core"
 export default {
   props: {
     hand: {
@@ -31,8 +32,11 @@ export default {
       required: true
     }
   },
-  setup() {
-
+  setup(props) {
+    // FIXME trying to get a total score
+    // watchEffect(() => {
+    //   props.totalScore += props.hand.score
+    // })
     return {
 
 

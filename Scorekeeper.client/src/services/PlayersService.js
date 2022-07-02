@@ -8,5 +8,8 @@ class PlayersService {
     logger.log("[getSessionsPlayers]", res.data)
     AppState.players = res.data
   }
+  async addPlayer() {
+    logger.error('Need to set up')
+  }
 }
 export const playersService = new PlayersService()

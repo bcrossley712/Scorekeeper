@@ -20,7 +20,7 @@
           <Hand :hand="h" />
         </div>
       </div>
-      <h5>Total</h5>
+      <h5>Total = {{}}</h5>
     </div>
   </div>
   <Modal :id="'add-hand' + player.id">
@@ -49,7 +49,7 @@ export default {
     const route = useRoute()
     return {
       editable,
-      hands: computed(() => AppState.hands.filter(h => h.playerId == props.player.id)),
+      hands: computed(() => AppState.hands.filter(h => h.playerId == props.player.id))
     }
   }
 }
