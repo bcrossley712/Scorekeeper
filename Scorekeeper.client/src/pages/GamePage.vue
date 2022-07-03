@@ -20,6 +20,10 @@
       </div>
     </div>
   </div>
+  <Modal id="newSession">
+    <template #title>Start New Session</template>
+    <template #body><SessionNewForm /></template>
+  </Modal>
 </template>
 
 
