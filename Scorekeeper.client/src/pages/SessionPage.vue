@@ -1,7 +1,7 @@
 <template>
   <div class="session container-fluid">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 d-flex justify-content-between">
         <button
           class="btn btn-primary"
           data-bs-toggle="modal"
@@ -9,6 +9,12 @@
         >
           Add Player
         </button>
+        <div>
+          <button class="btn btn-warning" @click="archiveSession">
+            Complete game?
+          </button>
+          <i class="mdi mdi-delete text-danger" @click="deleteSession"></i>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -63,6 +69,22 @@ export default {
       async addPlayer() {
         try {
           playersService.addPlayer(route.params.id)
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
+      async archiveSession() {
+        try {
+          logger.error("Not set up")
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
+        }
+      },
+      async deleteSession() {
+        try {
+          logger.error("Not set up")
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
