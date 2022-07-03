@@ -13,5 +13,11 @@ class HandsService {
     logger.log('[addHand]', res.data)
     AppState.hands = [...AppState.hands, res.data]
   }
+  async editHand(body) {
+    logger.error("Not set up")
+  }
+  async deleteHand(handId) {
+    logger.error("Not set up")
+  }
 }
 export const handsService = new HandsService()

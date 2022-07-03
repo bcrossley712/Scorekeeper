@@ -9,5 +9,7 @@ export const AppState = reactive({
   sessions: [],
   activeSession: {},
   players: [],
-  hands: []
+  activePlayer: {},
+  hands: [],
+  activeHand: {}
 })

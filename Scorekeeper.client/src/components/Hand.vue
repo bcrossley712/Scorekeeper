@@ -1,8 +1,9 @@
 <template>
   <div
     class="row selectable"
+    @click="setActiveHand"
     data-bs-toggle="modal"
-    :data-bs-target="'#edit-hand' + hand.id"
+    data-bs-target="#edit-hand"
   >
     <div class="col-3 p-0 border-dark border">
       <span class="px-1">{{ hand.bid }}</span>
@@ -14,10 +15,6 @@
       <span class="px-1">{{ hand.score }}</span>
     </div>
   </div>
-  <Modal :id="'edit-hand' + hand.id">
-    <template #title>Edit Hand?</template>
-    <template #body><HandEdit :hand="hand" /></template>
-  </Modal>
 </template>
 
 <script>
@@ -25,6 +22,7 @@ import { ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { watchEffect } from "@vue/runtime-core"
+import { AppState } from "../AppState"
 export default {
   props: {
     hand: {
@@ -35,10 +33,11 @@ export default {
   setup(props) {
     // FIXME trying to get a total score
     // watchEffect(() => {
-    //   props.totalScore += props.hand.score
     // })
     return {
-
+      setActiveHand() {
+        AppState.activeHand = props.hand
+      }
 
     }
   }

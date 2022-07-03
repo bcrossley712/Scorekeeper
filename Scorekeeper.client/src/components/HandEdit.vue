@@ -51,23 +51,22 @@ import { ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { watchEffect } from "@vue/runtime-core"
+import { Modal } from "bootstrap"
+import { AppState } from "../AppState"
+import { handsService } from "../services/HandsService"
 export default {
-  props: {
-    hand: {
-      type: Object,
-      required: true
-    }
-  },
-  setup(props) {
+
+  setup() {
     const editable = ref({})
     watchEffect(() => {
-      editable.value = props.hand
+      editable.value = AppState.activeHand
     })
     return {
       editable,
       async handleSubmit() {
         try {
-          console.error("Not set up");
+          await handsService.editHand(editable.value)
+          Modal.getOrCreateInstance(document.getElementById("edit-hand")).hide()
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')
@@ -76,7 +75,10 @@ export default {
       async deleteHand() {
         try {
           // NOTE don't for get to pop confirm
-          console.error("Not set up");
+          if (await Pop.confirm()) {
+            await handsService.deleteHand(AppState.activeHand.id)
+            Modal.getOrCreateInstance(document.getElementById("edit-hand")).hide()
+          }
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

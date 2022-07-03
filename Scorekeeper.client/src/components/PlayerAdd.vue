@@ -1,46 +1,23 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="mb-3 col-4">
-        <label for="bid" class="form-label">Bid</label>
+    <form @submit.prevent="handleSubmit" class="row">
+      <div class="mb-3 col-12">
+        <label for="name" class="form-label">Name</label>
         <input
-          type="number"
+          type="text"
           class="form-control"
-          name="bid"
-          id="bid"
+          name="name"
+          id="name"
           aria-describedby="helpId"
-          placeholder=""
-          v-model="editable.bid"
-        />
-      </div>
-      <div class="mb-3 col-4">
-        <label for="Take" class="form-label">Take</label>
-        <input
-          type="number"
-          class="form-control"
-          name="Take"
-          id="Take"
-          aria-describedby="helpId"
-          placeholder=""
-          v-model="editable.take"
-        />
-      </div>
-      <div class="mb-3 col-4">
-        <label for="Score" class="form-label">Score</label>
-        <input
-          type="number"
-          class="form-control"
-          name="Score"
-          id="Score"
-          aria-describedby="helpId"
-          placeholder=""
-          v-model="editable.score"
+          placeholder="Name..."
+          v-model="editable.name"
+          required
         />
       </div>
       <div class="">
-        <button class="btn btn-success" @click="handleSubmit">Confirm</button>
+        <button class="btn btn-success">Confirm</button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -51,7 +28,8 @@ import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { watchEffect } from "@vue/runtime-core"
 import { useRoute } from "vue-router"
-import { handsService } from "../services/HandsService"
+import { playersService } from "../services/PlayersService"
+import { Modal } from "bootstrap"
 export default {
 
   setup(props) {
@@ -62,7 +40,9 @@ export default {
       async handleSubmit() {
         try {
           editable.value.sessionId = route.params.id
-          await handsService.addHand(editable.value)
+          await playersService.addPlayer(editable.value)
+          Modal.getOrCreateInstance(document.getElementById("player-add")).hide()
+          editable.value = {}
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <form class="row" @submit.prevent="handleSubmit">
       <div class="mb-3 col-4">
         <label for="bid" class="form-label">Bid</label>
         <input
@@ -9,7 +9,7 @@
           name="bid"
           id="bid"
           aria-describedby="helpId"
-          placeholder=""
+          placeholder="0"
           v-model="editable.bid"
         />
       </div>
@@ -21,7 +21,7 @@
           name="Take"
           id="Take"
           aria-describedby="helpId"
-          placeholder=""
+          placeholder="0"
           v-model="editable.take"
         />
       </div>
@@ -33,14 +33,14 @@
           name="Score"
           id="Score"
           aria-describedby="helpId"
-          placeholder=""
+          placeholder="0"
           v-model="editable.score"
         />
       </div>
       <div class="">
-        <button class="btn btn-success" @click="handleSubmit">Confirm</button>
+        <button class="btn btn-success">Confirm</button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -52,13 +52,10 @@ import { logger } from "../utils/Logger"
 import { watchEffect } from "@vue/runtime-core"
 import { useRoute } from "vue-router"
 import { handsService } from "../services/HandsService"
+import { Modal } from "bootstrap"
+import { AppState } from "../AppState"
 export default {
-  props: {
-    player: {
-      type: Object,
-      required: true
-    }
-  },
+
   setup(props) {
     const editable = ref({})
     const route = useRoute()
@@ -66,9 +63,11 @@ export default {
       editable,
       async handleSubmit() {
         try {
-          editable.value.playerId = props.player.id
+          editable.value.playerId = AppState.activePlayer.id
           editable.value.sessionId = route.params.id
           await handsService.addHand(editable.value)
+          Modal.getOrCreateInstance(document.getElementById("add-hand")).hide()
+          editable.value = {}
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

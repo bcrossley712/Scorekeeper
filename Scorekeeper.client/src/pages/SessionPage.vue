@@ -21,6 +21,14 @@
     <template #title>Add Player</template>
     <template #body><PlayerAdd /></template>
   </Modal>
+  <Modal id="add-hand">
+    <template #title>Add Hand</template>
+    <template #body><HandAdd /></template>
+  </Modal>
+  <Modal id="edit-hand">
+    <template #title>Edit Hand?</template>
+    <template #body><HandEdit /></template>
+  </Modal>
 </template>
 
 
