@@ -1,30 +1,33 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 p-2 d-flex justify-content-between">
         <h3>What game will we play?!</h3>
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#add-game"
+        >
+          Add Game
+        </button>
       </div>
     </div>
     <div class="row px-2">
-      <div class="col-3 p-2" v-for="g in games" :key="g.id">
-        <!-- TODO Card images for each game. On click will take to game page. Add ability to have a 'blank' game with just ability to add players and scores. -->
+      <div class="col-12 col-md-3 p-2" v-for="g in games" :key="g.id">
+        <!-- TODO Add ability to have a 'blank' game with just ability to add players and scores. -->
         <img
-          @click="goTo(g.id)"
-          class="img-fluid selectable"
+          @click="goTo(g)"
+          class="img-cover selectable"
           :src="g.image"
           :alt="g.title + ' image'"
         />
       </div>
-      <!-- <div class="col-3 p-2">
-        <img
-          @click="goTo"
-          class="img-fluid selectable"
-          src="../assets/img/Rook.png"
-          alt="Game of Rook image"
-        />
-      </div> -->
     </div>
   </div>
+  <Modal id="add-game">
+    <template #title>Add New Game</template>
+    <template #body><GameAddForm /></template>
+  </Modal>
 </template>
 
 <script>
@@ -43,8 +46,9 @@ export default {
     })
     return {
       games: computed(() => AppState.games),
-      goTo(id) {
-        router.push({ name: "Game", params: { id: id } })
+      goTo(game) {
+        AppState.activeGame = game
+        router.push({ name: "Game", params: { id: game.id } })
       }
     }
   }
@@ -52,4 +56,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.img-cover {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
 </style>
