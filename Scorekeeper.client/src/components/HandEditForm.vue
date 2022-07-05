@@ -69,19 +69,18 @@ export default {
           Modal.getOrCreateInstance(document.getElementById("edit-hand")).hide()
         } catch (error) {
           logger.error(error)
-          Pop.toast(error.message, 'error')
+          Pop.toast(error.message, 'error', "center")
         }
       },
       async deleteHand() {
         try {
-          // NOTE don't for get to pop confirm
           if (await Pop.confirm()) {
             await handsService.deleteHand(AppState.activeHand.id)
             Modal.getOrCreateInstance(document.getElementById("edit-hand")).hide()
           }
         } catch (error) {
           logger.error(error)
-          Pop.toast(error.message, 'error')
+          Pop.toast(error.message, 'error', "center")
         }
       }
     }

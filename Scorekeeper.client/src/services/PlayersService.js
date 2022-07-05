@@ -13,5 +13,11 @@ class PlayersService {
     logger.log("[addPlayers]", res.data)
     AppState.players = [...AppState.players, res.data]
   }
+  async editPlayer(body) {
+    logger.error("Not set up")
+  }
+  async deletePlayer(id) {
+    logger.error("Not set up")
+  }
 }
 export const playersService = new PlayersService()

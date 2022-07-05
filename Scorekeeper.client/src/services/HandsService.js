@@ -14,10 +14,16 @@ class HandsService {
     AppState.hands = [...AppState.hands, res.data]
   }
   async editHand(body) {
-    logger.error("Not set up")
+    let index = AppState.hands.findIndex(h => h.id == body.id)
+    const res = await api.put(`api/hands/${body.id}`, body)
+    logger.log("[editHand]", res.data)
+    AppState.hands.splice(index, 1, res.data)
   }
   async deleteHand(handId) {
-    logger.error("Not set up")
+    let index = AppState.hands.findIndex(h => h.id == handId)
+    const res = await api.delete(`api/hands/${handId}`)
+    logger.log("[deleteHand]", res.data)
+    AppState.hands.splice(index, 1)
   }
 }
 export const handsService = new HandsService()

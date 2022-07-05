@@ -7,7 +7,9 @@ export const PlayerSchema = new Schema(
     name: { type: String, required: true },
     creatorId: { type: ObjectId, required: true, ref: 'Profile' },
     sessionId: { type: ObjectId, required: true, ref: 'Session' },
-    picture: { type: String }
+    picture: { type: String },
+    // NOTE trying to create system of tracking total score of player
+    totalScore: { type: Number }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

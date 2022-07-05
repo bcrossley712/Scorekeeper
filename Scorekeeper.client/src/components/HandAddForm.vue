@@ -70,7 +70,7 @@ export default {
           editable.value = {}
         } catch (error) {
           logger.error(error)
-          Pop.toast(error.message, 'error')
+          Pop.toast("Are you logged in?", 'error', "center")
         }
       }
     }

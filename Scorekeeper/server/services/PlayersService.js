@@ -1,18 +1,25 @@
 import { dbContext } from "../db/DbContext";
 import { Forbidden } from "../utils/Errors";
+import { handsService } from "./HandsService";
 
 class PlayersService {
   async getSessionsPlayers(sessionId) {
-    const players = await dbContext.Players.find({ sessionId: sessionId }).populate('creator', 'name picture').populate('session')
+    const players = await dbContext.Players.find({ sessionId: sessionId }).populate('session')
+    // NOTE trying to create system to track total score of player
+    // players.forEach(async p => {
+    //   p.totalScore = 0
+    //   let playerHands = await handsService.getPlayersHands(p.id)
+    //   playerHands.forEach(h => p.totalScore += h.score)
+    //   await p.save()
+    // })
     return players
   }
   async getById(id) {
-    const player = await dbContext.Players.findById(id).populate('creator', 'name picture').populate('session')
+    const player = await dbContext.Players.findById(id).populate('session')
     return player
   }
   async create(body) {
     const player = await dbContext.Players.create(body)
-    await player.populate('creator', 'name picture')
     await player.populate('session')
     return player
   }
@@ -24,7 +31,6 @@ class PlayersService {
     original.name = update.name ? update.name : original.name
     original.picture = update.picture ? update.picture : original.picture
     await original.save()
-    await original.populate('creator', 'name picture')
     await original.populate('session')
     return original
   }

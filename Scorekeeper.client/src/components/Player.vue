@@ -2,7 +2,14 @@
   <div class="row p-2">
     <div class="col-12 d-flex flex-column">
       <div class="d-flex align-items-center">
-        <h5 class="m-0 me-4">{{ player.name }}</h5>
+        <h5
+          @click="setActivePlayer"
+          class="m-0 me-4 selectable"
+          data-bs-toggle="modal"
+          data-bs-target="#player-edit"
+        >
+          {{ player.name }}
+        </h5>
         <i
           class="mdi mdi-plus selectable text-dark fs-5"
           title="Add hand"
@@ -21,7 +28,7 @@
           <Hand :hand="h" />
         </div>
       </div>
-      <h5>Total = {{ total }}</h5>
+      <h5>Total = {{ totalScore }}</h5>
     </div>
   </div>
 </template>
@@ -44,13 +51,15 @@ export default {
   setup(props) {
     const editable = ref({})
     const route = useRoute()
-    let total = ref(0)
     return {
       editable,
-      total,
       hands: computed(() => AppState.hands.filter(h => h.playerId == props.player.id)),
-      // FIXME close but not reactive and only recognizes score after selecting vue tools
-      totalScore: computed(() => AppState.hands.filter(h => h.playerId == props.player.id).forEach(hand => total.value += hand.score)),
+      totalScore: computed(() => {
+        let total = 0;
+        let myHands = AppState.hands.filter(h => h.playerId == props.player.id);
+        myHands.forEach(hand => total += hand.score)
+        return total
+      }),
       setActivePlayer() {
         AppState.activePlayer = props.player
       }

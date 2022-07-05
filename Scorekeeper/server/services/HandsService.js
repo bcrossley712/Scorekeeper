@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext";
 import { BadRequest, Forbidden } from "../utils/Errors";
+import { playersService } from "./PlayersService";
 
 class HandsService {
   async getSessionsHands(sessionId) {
@@ -20,6 +21,10 @@ class HandsService {
   async create(body) {
     const hand = await dbContext.Hands.create(body)
     await hand.populate('player', 'name')
+    // NOTE trying to create a system of tracking total score of player
+    // const player = await playersService.getById(body.playerId)
+    // player.totalScore += body.score
+    // await player.save()
     return hand
   }
   async update(update, id) {
