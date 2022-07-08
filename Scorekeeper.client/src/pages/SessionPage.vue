@@ -54,7 +54,7 @@ import { computed, ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { AppState } from "../AppState"
-import { onMounted } from "@vue/runtime-core"
+import { onMounted, watchEffect } from "@vue/runtime-core"
 import { sessionsService } from "../services/SessionsService"
 import { useRoute, useRouter } from "vue-router"
 import { playersService } from "../services/PlayersService";
@@ -64,6 +64,10 @@ export default {
   setup() {
     const route = useRoute()
     const router = useRouter()
+    const editable = ref({})
+    watchEffect(() => {
+      editable.value = AppState.activeSession
+    })
     onMounted(async () => {
       try {
         AppState.activeSession = await sessionsService.getSessionById(route.params.id)
@@ -90,8 +94,9 @@ export default {
       async archiveSession() {
         try {
           if (await Pop.confirm("Archive Session and declare winner?", "", "info", "Go for it!")) {
-            logger.error("Not set up")
             router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })
+            editable.value.winner =
+              logger.error("Not set up")
           }
         } catch (error) {
           logger.error(error)
@@ -101,8 +106,9 @@ export default {
       async deleteSession() {
         try {
           if (await Pop.confirm('Delete Session?')) {
-            logger.error("Not set up")
             router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })
+            await sessionsService.deleteSession(AppState.activeSession.id)
+            Pop.toast("Session deleted", 'success')
           }
         } catch (error) {
           logger.error(error)

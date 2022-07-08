@@ -123,6 +123,7 @@ export default {
               Modal.getOrCreateInstance(document.getElementById("edit-game")).hide()
               await gamesService.deleteGame(AppState.activeGame.id)
               router.push({ name: "Home" })
+              Pop.toast("Game deleted", "success")
             }
           }
         } catch (error) {

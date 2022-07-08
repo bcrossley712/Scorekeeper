@@ -63,6 +63,7 @@ export default {
           if (await Pop.confirm()) {
             await playersService.deletePlayer(AppState.activePlayer.id)
             Modal.getOrCreateInstance(document.getElementById("player-edit")).hide()
+            Pop.toast("Player deleted", "success")
           }
         } catch (error) {
           logger.error(error)

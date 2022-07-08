@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <form class="row" @submit.prevent="handleSubmit">
-      <div class="mb-3 col-4">
+      <div class="mb-3 col-4" v-if="game.bidding == true">
         <label for="bid" class="form-label">Bid</label>
         <input
           type="number"
@@ -13,7 +13,7 @@
           v-model="editable.bid"
         />
       </div>
-      <div class="mb-3 col-4">
+      <div class="mb-3 col-4" v-if="game.bidding == true">
         <label for="Take" class="form-label">Take</label>
         <input
           type="number"
@@ -25,7 +25,19 @@
           v-model="editable.take"
         />
       </div>
-      <div class="mb-3 col-4">
+      <div class="mb-3 col-4" v-if="game.bidding == true">
+        <label for="Score" class="form-label">Score</label>
+        <input
+          type="number"
+          class="form-control"
+          name="Score"
+          id="Score"
+          aria-describedby="helpId"
+          placeholder="0"
+          v-model="editable.score"
+        />
+      </div>
+      <div class="mb-3" v-else>
         <label for="Score" class="form-label">Score</label>
         <input
           type="number"
@@ -46,7 +58,7 @@
 
 
 <script>
-import { ref } from "@vue/reactivity"
+import { computed, ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { watchEffect } from "@vue/runtime-core"
@@ -56,11 +68,12 @@ import { Modal } from "bootstrap"
 import { AppState } from "../AppState"
 export default {
 
-  setup(props) {
+  setup() {
     const editable = ref({})
     const route = useRoute()
     return {
       editable,
+      game: computed(() => AppState.activeGame),
       async handleSubmit() {
         try {
           editable.value.playerId = AppState.activePlayer.id
