@@ -19,8 +19,8 @@
         ></i>
       </div>
       <div class="row border-bottom border-dark">
-        <div class="col-3 p-0">BID</div>
-        <div class="col-3 p-0">TAKE</div>
+        <div class="col-3 p-0" v-if="game.bidding == true">BID</div>
+        <div class="col-3 p-0" v-if="game.bidding == true">TAKE</div>
         <div class="col-6 p-0">SCORE</div>
       </div>
       <div class="row">
@@ -54,6 +54,7 @@ export default {
     return {
       editable,
       hands: computed(() => AppState.hands.filter(h => h.playerId == props.player.id)),
+      game: computed(() => AppState.activeGame),
       totalScore: computed(() => {
         let total = 0;
         let myHands = AppState.hands.filter(h => h.playerId == props.player.id);

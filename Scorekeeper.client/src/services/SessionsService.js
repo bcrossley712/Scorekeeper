@@ -12,6 +12,13 @@ class SessionsService {
     const res = await api.get(`api/sessions/${sessionId}`)
     logger.log("[getSessionById]", res.data)
     AppState.activeSession = res.data
+    return res.data
+  }
+  async addSession(body) {
+    const res = await api.post(`api/sessions`, body)
+    logger.log("[addSession]", res.data)
+    AppState.sessions = [...AppState.sessions, res.data]
+    return res.data
   }
 }
 export const sessionsService = new SessionsService()

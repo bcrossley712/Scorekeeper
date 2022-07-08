@@ -9,6 +9,9 @@
         >
           Add Player
         </button>
+        <div class="text-center">
+          <h2>{{ game.title }}</h2>
+        </div>
         <div>
           <button class="btn btn-warning" @click="archiveSession">
             Complete game?
@@ -63,8 +66,7 @@ export default {
     const router = useRouter()
     onMounted(async () => {
       try {
-        // FIXME add watcheffect and conditional to change pages with navbar
-        await sessionsService.getSessionById(route.params.id)
+        AppState.activeSession = await sessionsService.getSessionById(route.params.id)
         await playersService.getSessionsPlayers(route.params.id)
         await handsService.getSessionsHands(route.params.id)
         await gamesService.getGames()
@@ -72,9 +74,11 @@ export default {
         logger.error(error)
         Pop.toast(error.message, 'error')
       }
+      AppState.activeGame = AppState.games.find(g => g.id == AppState.activeSession.gameId)
     })
     return {
       players: computed(() => AppState.players),
+      game: computed(() => AppState.activeGame),
       async addPlayer() {
         try {
           playersService.addPlayer(route.params.id)
@@ -98,6 +102,7 @@ export default {
         try {
           if (await Pop.confirm('Delete Session?')) {
             logger.error("Not set up")
+            router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })
           }
         } catch (error) {
           logger.error(error)

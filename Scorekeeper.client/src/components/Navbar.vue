@@ -19,14 +19,14 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link
+          <!-- <router-link
             v-for="g in games"
             :key="g.id"
             :to="{ name: 'Game', params: { id: g.id } }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
             {{ g.title }}
-          </router-link>
+          </router-link> -->
           <router-link
             :to="{ name: 'About' }"
             class="btn text-success lighten-30 selectable text-uppercase"

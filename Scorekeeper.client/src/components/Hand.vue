@@ -5,20 +5,25 @@
     data-bs-toggle="modal"
     data-bs-target="#edit-hand"
   >
-    <div class="col-3 p-0 border-dark border">
-      <span class="px-1">{{ hand.bid }}</span>
+    <div v-if="game.bidding == true" class="d-flex p-0">
+      <div class="col-3 p-0 border-dark border">
+        <span class="px-1">{{ hand.bid }}</span>
+      </div>
+      <div class="col-3 p-0 border-dark border">
+        <span class="px-1">{{ hand.take }}</span>
+      </div>
+      <div class="col-6 p-0 border-dark border">
+        <span class="px-1">{{ hand.score }}</span>
+      </div>
     </div>
-    <div class="col-3 p-0 border-dark border">
-      <span class="px-1">{{ hand.take }}</span>
-    </div>
-    <div class="col-6 p-0 border-dark border">
+    <div class="col-12 p-0 border-dark border" v-else>
       <span class="px-1">{{ hand.score }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "@vue/reactivity"
+import { computed, ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { watchEffect } from "@vue/runtime-core"
@@ -31,10 +36,9 @@ export default {
     }
   },
   setup(props) {
-    // FIXME trying to get a total score
-    // watchEffect(() => {
-    // })
+
     return {
+      game: computed(() => AppState.activeGame),
       setActiveHand() {
         AppState.activeHand = props.hand
       }

@@ -1,8 +1,17 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 p-2 d-flex justify-content-between">
         <button class="btn btn-primary" @click="newSession">New Session</button>
+        <div class="text-center">
+          <h2>{{ game.title }}</h2>
+        </div>
+        <i
+          class="mdi mdi-pencil selectable text-warning me-4"
+          title="Edit Game"
+          data-bs-toggle="modal"
+          data-bs-target="#edit-game"
+        ></i>
       </div>
     </div>
     <div class="row">
@@ -20,9 +29,9 @@
       </div>
     </div>
   </div>
-  <Modal id="newSession">
-    <template #title>Start New Session</template>
-    <template #body><SessionNewForm /></template>
+  <Modal id="edit-game">
+    <template #title>Edit Game?</template>
+    <template #body><GameEditForm /></template>
   </Modal>
 </template>
 
@@ -42,8 +51,7 @@ export default {
     const router = useRouter()
     onMounted(async () => {
       try {
-        // FIXME add watcheffect and conditional to change pages with navbar
-        await gamesService.getGameById(route.params.id)
+        AppState.activeGame = await gamesService.getGameById(route.params.id)
         await sessionsService.getGamesSessions(route.params.id)
         await gamesService.getGames()
       } catch (error) {
@@ -53,12 +61,17 @@ export default {
     })
     return {
       sessions: computed(() => AppState.sessions),
+      game: computed(() => AppState.activeGame),
       goTo(id) {
         router.push({ name: "Session", params: { id: id } })
       },
       async newSession() {
         try {
-          console.error("Not set up");
+          const body = {
+            gameId: AppState.activeGame.id
+          }
+          const newSession = await sessionsService.addSession(body)
+          router.push({ name: "Session", params: { id: newSession.id } })
         } catch (error) {
           logger.error(error)
           Pop.toast(error.message, 'error')

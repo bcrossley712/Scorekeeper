@@ -9,6 +9,8 @@ export const GameSchema = new Schema(
     scoring: { type: String },
     rules: { type: String },
     creatorId: { type: ObjectId, required: true, ref: 'Profile' },
+    bidding: { type: Boolean, default: false },
+    lowScoreWins: { type: Boolean, default: false },
     highScore: { type: Number },
     bestPlayer: { type: String }
   },

@@ -29,6 +29,8 @@ class GamesService {
     original.rules = update.rules ? update.rules : original.rules
     original.highScore = update.highScore ? update.highScore : original.highScore
     original.bestPlayer = update.bestPlayer ? update.bestPlayer : original.bestPlayer
+    original.bidding = update.bidding != null ? update.bidding : original.bidding
+    original.lowScoreWins = update.lowScoreWins != null ? update.lowScoreWins : original.lowScoreWins
     await original.save()
     await original.populate('creator', 'name picture')
     return original

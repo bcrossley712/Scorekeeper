@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <form class="row" @submit.prevent="handleSubmit">
+    <div class="row">
       <div class="col-12">
         <div class="mb-3">
           <label for="title" class="form-label">Game Title</label>
@@ -80,10 +80,11 @@
           </label>
         </div>
       </div>
-      <div class="p-2">
-        <button class="btn btn-success">Submit</button>
+      <div class="d-flex justify-content-between p-2">
+        <button class="btn btn-success" @click="handleSubmit">Submit</button>
+        <button class="btn btn-danger" @click="deleteGame">Delete Game?</button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -94,19 +95,39 @@ import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { gamesService } from "../services/GamesService"
 import { Modal } from "bootstrap"
+import { watchEffect } from "@vue/runtime-core"
+import { AppState } from "../AppState"
+import { useRouter } from "vue-router"
 export default {
   setup() {
     const editable = ref({})
+    const router = useRouter()
+    watchEffect(() =>
+      editable.value = AppState.activeGame)
     return {
       editable,
       async handleSubmit() {
         try {
-          await gamesService.addGame(editable.value)
-          Modal.getOrCreateInstance(document.getElementById("add-game")).hide()
+          await gamesService.editGame(editable.value)
+          Modal.getOrCreateInstance(document.getElementById("edit-game")).hide()
           editable.value = {}
         } catch (error) {
           logger.error(error)
           Pop.toast("Are you logged in?", 'error', "center")
+        }
+      },
+      async deleteGame() {
+        try {
+          if (await Pop.confirm('Are you sure?', 'All game data and history will be lost forever!', 'info', 'Yes, Delete!')) {
+            if (await Pop.confirm('Okay but are you really really sure??', '', 'info', 'I said yes!')) {
+              Modal.getOrCreateInstance(document.getElementById("edit-game")).hide()
+              await gamesService.deleteGame(AppState.activeGame.id)
+              router.push({ name: "Home" })
+            }
+          }
+        } catch (error) {
+          logger.error(error)
+          Pop.toast(error.message, 'error')
         }
       }
     }
