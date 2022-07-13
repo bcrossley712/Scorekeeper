@@ -21,13 +21,14 @@ class SessionsService {
     return res.data
   }
   async archiveSession(body) {
-    const index = AppState.sessions.find(s => s.id == body.id)
+    const index = AppState.sessions.findIndex(s => s.id == body.id)
+    logger.log(index)
     const res = await api.put(`api/sessions/${body.id}`, body)
     logger.log("[archiveSession]", res.data)
     AppState.sessions.splice(index, 1, res.data)
   }
   async deleteSession(id) {
-    const index = AppState.sessions.find(s => s.id == id)
+    const index = AppState.sessions.findIndex(s => s.id == id)
     const res = await api.delete(`api/sessions/${id}`)
     logger.log("[deleteSession]", res.data)
     AppState.sessions.splice(index, 1)

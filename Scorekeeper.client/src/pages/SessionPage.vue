@@ -14,7 +14,7 @@
         </div>
         <div>
           <button class="btn btn-warning" @click="archiveSession">
-            Complete game?
+            Complete session?
           </button>
           <i
             class="mdi mdi-delete text-danger selectable ms-2"
@@ -94,9 +94,10 @@ export default {
       async archiveSession() {
         try {
           if (await Pop.confirm("Archive Session and declare winner?", "", "info", "Go for it!")) {
+            editable.value.winner = "I win!"
+            editable.value.archived = !AppState.activeSession.archived
+            sessionsService.archiveSession(editable.value)
             router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })
-            editable.value.winner =
-              logger.error("Not set up")
           }
         } catch (error) {
           logger.error(error)
