@@ -1,10 +1,27 @@
 <template>
   <div
+    v-if="session.archived == false"
     class="row selectable"
     @click="setActiveHand"
     data-bs-toggle="modal"
     data-bs-target="#edit-hand"
   >
+    <div v-if="game.bidding == true" class="d-flex p-0">
+      <div class="col-3 p-0 border-dark border">
+        <span class="px-1">{{ hand.bid }}</span>
+      </div>
+      <div class="col-3 p-0 border-dark border">
+        <span class="px-1">{{ hand.take }}</span>
+      </div>
+      <div class="col-6 p-0 border-dark border">
+        <span class="px-1">{{ hand.score }}</span>
+      </div>
+    </div>
+    <div class="col-12 p-0 border-dark border" v-else>
+      <span class="px-1">{{ hand.score }}</span>
+    </div>
+  </div>
+  <div v-else class="row">
     <div v-if="game.bidding == true" class="d-flex p-0">
       <div class="col-3 p-0 border-dark border">
         <span class="px-1">{{ hand.bid }}</span>
@@ -39,6 +56,7 @@ export default {
 
     return {
       game: computed(() => AppState.activeGame),
+      session: computed(() => AppState.activeSession),
       setActiveHand() {
         AppState.activeHand = props.hand
       }

@@ -22,7 +22,6 @@ class SessionsService {
   }
   async archiveSession(body) {
     const index = AppState.sessions.findIndex(s => s.id == body.id)
-    logger.log(index)
     const res = await api.put(`api/sessions/${body.id}`, body)
     logger.log("[archiveSession]", res.data)
     AppState.sessions.splice(index, 1, res.data)

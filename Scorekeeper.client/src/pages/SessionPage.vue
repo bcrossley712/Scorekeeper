@@ -6,13 +6,15 @@
           class="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#player-add"
+          v-if="session.archived == false"
         >
           Add Player
         </button>
+        <div class="v-else"></div>
         <div class="text-center">
           <h2>{{ game.title }}</h2>
         </div>
-        <div>
+        <div v-if="session.archived == false">
           <button class="btn btn-warning" @click="archiveSession">
             Complete session?
           </button>
@@ -22,6 +24,12 @@
             @click="deleteSession"
           ></i>
         </div>
+        <i
+          v-else
+          class="mdi mdi-pencil text-warning selectable"
+          title="Edit Session"
+          @click="archiveSession"
+        ></i>
       </div>
     </div>
     <div class="row">
@@ -83,6 +91,7 @@ export default {
     return {
       players: computed(() => AppState.players),
       game: computed(() => AppState.activeGame),
+      session: computed(() => AppState.activeSession),
       async addPlayer() {
         try {
           playersService.addPlayer(route.params.id)
@@ -93,11 +102,18 @@ export default {
       },
       async archiveSession() {
         try {
-          if (await Pop.confirm("Archive Session and declare winner?", "", "info", "Go for it!")) {
-            editable.value.winner = "I win!"
-            editable.value.archived = !AppState.activeSession.archived
-            sessionsService.archiveSession(editable.value)
-            router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })
+          if (AppState.activeSession?.archived == false) {
+            if (await Pop.confirm("Archive Session and declare winner?", "", "info", "Go for it!")) {
+              editable.value.winner = "I win!"
+              editable.value.archived = !AppState.activeSession.archived
+              sessionsService.archiveSession(editable.value)
+              router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })
+            }
+          } else {
+            if (await Pop.confirm("Remove from archive and allow editing?", "", "info", "Yes, please.")) {
+              editable.value.archived = !AppState.activeSession.archived
+              sessionsService.archiveSession(editable.value)
+            }
           }
         } catch (error) {
           logger.error(error)
