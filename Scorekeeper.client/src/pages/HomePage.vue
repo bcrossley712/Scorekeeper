@@ -32,8 +32,6 @@
 
 <script>
 import { computed, ref } from "@vue/reactivity"
-import Pop from "../utils/Pop"
-import { logger } from "../utils/Logger"
 import { onMounted } from "@vue/runtime-core"
 import { gamesService } from "../services/GamesService";
 import { AppState } from "../AppState"

@@ -1,6 +1,5 @@
 import { dbContext } from "../db/DbContext";
 import { BadRequest, Forbidden } from "../utils/Errors";
-import { playersService } from "./PlayersService";
 
 class HandsService {
   async getSessionsHands(sessionId) {
