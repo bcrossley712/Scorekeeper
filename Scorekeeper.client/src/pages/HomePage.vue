@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="row px-2">
-      <div class="col-12 col-md-3 p-2" v-for="g in games" :key="g.id">
+      <div class="col-12 col-md-2 p-2" v-for="g in games" :key="g.id">
         <!-- TODO Add ability to have a 'blank' game with just ability to add players and scores. -->
         <img
           @click="goTo(g)"
