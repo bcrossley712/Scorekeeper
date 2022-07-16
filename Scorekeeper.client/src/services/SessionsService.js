@@ -1,6 +1,7 @@
 import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
+import { playersService } from "./PlayersService"
 
 class SessionsService {
   async getGamesSessions(gameId) {
@@ -21,6 +22,28 @@ class SessionsService {
     return res.data
   }
   async archiveSession(body) {
+    await playersService.getSessionsPlayers(body.id)
+    const players = AppState.players
+    let topScore = null
+    if (body.game.lowScoreWins) {
+      players.forEach(p => {
+        if (topScore == null || p.totalScore < topScore) {
+          topScore = p.totalScore
+          body.winner = p.name
+        } else if (p.totalScore == topScore) {
+          body.winner = body.winner + `, ${p.name}`
+        }
+      })
+    } else {
+      players.forEach(p => {
+        if (topScore == null || p.totalScore > topScore) {
+          topScore = p.totalScore
+          body.winner = p.name
+        } else if (p.totalScore == topScore) {
+          body.winner = body.winner + `, ${p.name}`
+        }
+      })
+    }
     const index = AppState.sessions.findIndex(s => s.id == body.id)
     const res = await api.put(`api/sessions/${body.id}`, body)
     logger.log("[archiveSession]", res.data)

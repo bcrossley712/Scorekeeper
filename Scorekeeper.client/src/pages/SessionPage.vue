@@ -15,7 +15,11 @@
           <h2>{{ game.title }}</h2>
         </div>
         <div v-if="session.archived == false">
-          <button class="btn btn-warning" @click="archiveSession">
+          <button
+            v-if="players.length > 0"
+            class="btn btn-warning"
+            @click="archiveSession"
+          >
             Complete session?
           </button>
           <i
@@ -104,7 +108,6 @@ export default {
         try {
           if (AppState.activeSession?.archived == false) {
             if (await Pop.confirm("Archive Session and declare winner?", "", "info", "Go for it!")) {
-              editable.value.winner = "I win!"
               editable.value.archived = !AppState.activeSession.archived
               sessionsService.archiveSession(editable.value)
               router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })

@@ -9,7 +9,7 @@ export const PlayerSchema = new Schema(
     sessionId: { type: ObjectId, required: true, ref: 'Session' },
     picture: { type: String },
     // NOTE trying to create system of tracking total score of player
-    totalScore: { type: Number }
+    totalScore: { type: Number, default: 0 }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

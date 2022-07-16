@@ -3,11 +3,11 @@ import { BadRequest, Forbidden } from "../utils/Errors";
 
 class SessionsService {
   async getGamesSessions(gameId) {
-    const sessions = await dbContext.Sessions.find({ gameId: gameId }).populate('creator', 'name picture').populate('game', 'title')
+    const sessions = await dbContext.Sessions.find({ gameId: gameId }).populate('creator', 'name picture').populate('game', 'title lowScoreWins')
     return sessions
   }
   async getById(id) {
-    const session = await dbContext.Sessions.findById(id).populate('creator', 'name picture').populate('game', 'title')
+    const session = await dbContext.Sessions.findById(id).populate('creator', 'name picture').populate('game', 'title lowScoreWins')
     if (session == null) {
       throw new BadRequest('Invalid Session Id')
     }
@@ -16,7 +16,7 @@ class SessionsService {
   async create(body) {
     const session = await dbContext.Sessions.create(body)
     await session.populate('creator', 'name picture')
-    await session.populate('game', 'title')
+    await session.populate('game', 'title lowScoreWins')
     return session
   }
   async update(id, update) {
@@ -28,7 +28,7 @@ class SessionsService {
     original.winner = update.winner ? update.winner : original.winner
     await original.save()
     await original.populate('creator', 'name picture')
-    await original.populate('game', 'title')
+    await original.populate('game', 'title lowScoreWins')
     return original
   }
   async delete(userId, id) {

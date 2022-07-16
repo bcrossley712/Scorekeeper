@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext";
 import { BadRequest, Forbidden } from "../utils/Errors";
+import { playersService } from "./PlayersService";
 
 class HandsService {
   async getSessionsHands(sessionId) {
@@ -21,9 +22,11 @@ class HandsService {
     const hand = await dbContext.Hands.create(body)
     await hand.populate('player', 'name')
     // NOTE trying to create a system of tracking total score of player
-    // const player = await playersService.getById(body.playerId)
-    // player.totalScore += body.score
-    // await player.save()
+    const player = await playersService.getById(body.playerId)
+    if (body.score) {
+      player.totalScore += body.score
+      await player.save()
+    }
     return hand
   }
   async update(update, id) {
@@ -31,9 +34,15 @@ class HandsService {
     if (original.creatorId.toString() != update.creatorId) {
       throw new Forbidden("You cannot update this hand")
     }
+    const player = await playersService.getById(original.playerId)
+    if (update.score != null || update.score == 0) {
+      player.totalScore -= original.score
+      player.totalScore += update.score
+    }
     original.bid = update.bid ? update.bid : update.bid == 0 ? update.bid : original.bid
     original.take = update.take ? update.take : update.take == 0 ? update.take : original.take
     original.score = update.score ? update.score : update.score == 0 ? update.score : original.score
+    await player.save()
     await original.save()
     await original.populate('player', 'name')
     return original
@@ -43,6 +52,9 @@ class HandsService {
     if (toDelete.creatorId.toString() != userId) {
       throw new Forbidden("You cannot delete this hand")
     }
+    const player = await playersService.getById(toDelete.playerId)
+    player.totalScore -= toDelete.score
+    await player.save()
     await dbContext.Hands.findByIdAndDelete(handId)
   }
 }
