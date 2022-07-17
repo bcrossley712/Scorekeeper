@@ -4,6 +4,7 @@
       <div class="col-12 p-2 d-flex justify-content-between">
         <h3>What game will we play?!</h3>
         <button
+          v-if="user.isAuthenticated"
           class="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#add-game"
@@ -44,6 +45,7 @@ export default {
     })
     return {
       games: computed(() => AppState.games),
+      user: computed(() => AppState.user),
       goTo(game) {
         AppState.activeGame = game
         router.push({ name: "Game", params: { id: game.id } })

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="session.archived == false"
+    v-if="session.archived == false && user.isAuthenticated"
     class="row selectable"
     @click="setActiveHand"
     data-bs-toggle="modal"
@@ -56,6 +56,7 @@ export default {
 
     return {
       game: computed(() => AppState.activeGame),
+      user: computed(() => AppState.user),
       session: computed(() => AppState.activeSession),
       setActiveHand() {
         AppState.activeHand = props.hand

@@ -82,7 +82,7 @@ export default {
           Modal.getOrCreateInstance(document.getElementById("edit-hand")).hide()
         } catch (error) {
           logger.error(error)
-          Pop.toast(error.message, 'error', "center")
+          Pop.toast(error.message, 'error')
         }
       },
       async deleteHand() {
@@ -93,7 +93,7 @@ export default {
           }
         } catch (error) {
           logger.error(error)
-          Pop.toast(error.message, 'error', "center")
+          Pop.toast(error.message, 'error')
         }
       }
     }

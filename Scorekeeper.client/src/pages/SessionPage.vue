@@ -6,15 +6,15 @@
           class="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#player-add"
-          v-if="session.archived == false"
+          v-if="session.archived == false && user.isAuthenticated"
         >
           Add Player
         </button>
-        <div class="v-else"></div>
+        <div v-else-if="user.isAuthenticated"></div>
         <div class="text-center">
           <h2>{{ game.title }}</h2>
         </div>
-        <div v-if="session.archived == false">
+        <div v-if="session.archived == false && user.isAuthenticated">
           <button
             v-if="players.length > 0"
             class="btn btn-warning"
@@ -29,7 +29,7 @@
           ></i>
         </div>
         <i
-          v-else
+          v-else-if="user.isAuthenticated"
           class="mdi mdi-pencil text-warning selectable"
           title="Edit Session"
           @click="archiveSession"
@@ -95,6 +95,7 @@ export default {
     return {
       players: computed(() => AppState.players),
       game: computed(() => AppState.activeGame),
+      user: computed(() => AppState.user),
       session: computed(() => AppState.activeSession),
       async addPlayer() {
         try {

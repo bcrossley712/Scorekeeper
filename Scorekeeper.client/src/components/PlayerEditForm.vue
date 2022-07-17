@@ -34,15 +34,13 @@ import { ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import { watchEffect } from "@vue/runtime-core"
-import { useRoute } from "vue-router"
 import { playersService } from "../services/PlayersService"
 import { Modal } from "bootstrap"
 import { AppState } from "../AppState"
 export default {
 
-  setup(props) {
+  setup() {
     const editable = ref({})
-    const route = useRoute()
     watchEffect(() => {
       editable.value = AppState.activePlayer
     })

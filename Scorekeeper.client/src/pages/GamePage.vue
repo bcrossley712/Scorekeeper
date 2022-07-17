@@ -2,11 +2,18 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12 p-2 d-flex justify-content-between">
-        <button class="btn btn-primary" @click="newSession">New Session</button>
+        <button
+          v-if="user.isAuthenticated"
+          class="btn btn-primary"
+          @click="newSession"
+        >
+          New Session
+        </button>
         <div class="text-center">
           <h2>{{ game.title }}</h2>
         </div>
         <i
+          v-if="user.isAuthenticated"
           class="mdi mdi-pencil selectable text-warning me-4"
           title="Edit Game"
           data-bs-toggle="modal"
@@ -62,6 +69,7 @@ export default {
     return {
       sessions: computed(() => AppState.sessions),
       game: computed(() => AppState.activeGame),
+      user: computed(() => AppState.user),
       goTo(id) {
         router.push({ name: "Session", params: { id: id } })
       },

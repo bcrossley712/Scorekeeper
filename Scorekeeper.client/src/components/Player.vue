@@ -3,7 +3,7 @@
     <div class="col-12 d-flex flex-column">
       <div class="d-flex align-items-center">
         <h5
-          v-if="session.archived == false"
+          v-if="session.archived == false && user.isAuthenticated"
           @click="setActivePlayer"
           class="m-0 me-4 selectable"
           data-bs-toggle="modal"
@@ -15,7 +15,7 @@
           {{ player.name }}
         </h5>
         <i
-          v-if="session.archived == false"
+          v-if="session.archived == false && user.isAuthenticated"
           class="mdi mdi-plus selectable text-dark fs-5"
           title="Add hand"
           @click="setActivePlayer"
@@ -60,6 +60,7 @@ export default {
       editable,
       hands: computed(() => AppState.hands.filter(h => h.playerId == props.player.id)),
       game: computed(() => AppState.activeGame),
+      user: computed(() => AppState.user),
       session: computed(() => AppState.activeSession),
       totalScore: computed(() => {
         let total = 0;
