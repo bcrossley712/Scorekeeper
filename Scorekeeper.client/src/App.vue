@@ -5,6 +5,10 @@
   <main>
     <router-view />
   </main>
+  <Modal id="edit-account">
+    <template #title>Edit Account?</template>
+    <template #body><AccountEditForm /></template>
+  </Modal>
 </template>
 
 <script>
