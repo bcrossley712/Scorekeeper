@@ -15,13 +15,15 @@
     </div>
     <div class="row px-2">
       <div class="col-12 col-md-2 p-2" v-for="g in games" :key="g.id">
-        <!-- TODO Add ability to have a 'blank' game with just ability to add players and scores. -->
-        <img
-          @click="goTo(g)"
-          class="img-cover selectable"
-          :src="g.image"
-          :alt="g.title + ' image'"
-        />
+        <div class="text-center h-100">
+          <h5>{{ g.title }}</h5>
+          <img
+            @click="goTo(g)"
+            class="img-cover selectable"
+            :src="g.image"
+            :alt="g.title + ' image'"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -57,8 +59,8 @@ export default {
 
 <style scoped lang="scss">
 .img-cover {
-  height: 100%;
-  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
   object-fit: cover;
 }
 </style>
