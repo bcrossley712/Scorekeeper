@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6 col-sm-4 col-md-2" v-for="p in players" :key="p.id">
+      <div class="col-6 col-sm-4 col-lg-2" v-for="p in players" :key="p.id">
         <Player :player="p" />
       </div>
     </div>
