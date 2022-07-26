@@ -5,13 +5,13 @@
         <h5
           v-if="session.archived == false && user.isAuthenticated"
           @click="setActivePlayer"
-          class="m-0 me-4 selectable"
+          class="m-0 me-4 selectable border-bottom border-dark"
           data-bs-toggle="modal"
           data-bs-target="#player-edit"
         >
           {{ player.name }}
         </h5>
-        <h5 v-else class="m-0 me-4">
+        <h5 v-else class="m-0 me-4 border-bottom border-dark">
           {{ player.name }}
         </h5>
         <i
