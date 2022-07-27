@@ -6,9 +6,9 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [vue(), VitePWA({
     registerType: 'autoUpdate',
-    includeAssets: ['/public/img/icons/favicon-32x32.png', '/public/img/apple-touch-icon.png', '/public/img/safari-pinned-tab.svg'],
+    includeAssets: ['favicon.ico', 'apple-touch-icon.png', '/public/img/safari-pinned-tab.svg'],
     manifest: {
-      scope: "/app/",
+      scope: "/",
       name: 'Scorekeeper',
       short_name: 'Scorekeeper',
       description: 'Card game scorekeeper',
@@ -20,12 +20,12 @@ export default defineConfig({
           type: 'image/png'
         },
         {
-          src: '/public/img/icons/android-chrome-512x512.png',
+          src: 'android-chrome-512x512.png',
           sizes: '512x512',
           type: 'image/png'
         },
         {
-          src: '/public/img/icons/android-chrome-512x512.png',
+          src: 'android-chrome-512x512.png',
           sizes: '512x512',
           type: 'image/png',
           purpose: 'any maskable'
