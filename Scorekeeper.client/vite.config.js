@@ -8,6 +8,7 @@ export default defineConfig({
     registerType: 'autoUpdate',
     includeAssets: ['/public/img/icons/favicon-32x32.png', '/public/img/apple-touch-icon.png', '/public/img/safari-pinned-tab.svg'],
     manifest: {
+      scope: "/app/",
       name: 'Scorekeeper',
       short_name: 'Scorekeeper',
       description: 'Card game scorekeeper',
