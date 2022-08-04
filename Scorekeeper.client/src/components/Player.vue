@@ -41,10 +41,7 @@
 
 <script>
 import { computed, ref } from "@vue/reactivity"
-import Pop from "../utils/Pop"
-import { logger } from "../utils/Logger"
 import { AppState } from "../AppState"
-import { handsService } from "../services/HandsService"
 import { useRoute } from "vue-router"
 export default {
   props: {
