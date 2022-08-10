@@ -6,7 +6,18 @@
     data-bs-toggle="modal"
     data-bs-target="#edit-hand"
   >
-    <div v-if="game.bidding == true" class="d-flex p-0">
+    <div v-if="game.name == 'Rook'">
+      <div class="col-3 p-0 border-dark border">
+        <span class="px-1">{{ hand.bid }}</span>
+      </div>
+      <div class="col-6 p-0 border-dark border">
+        <span class="px-1">{{ hand.trump }}</span>
+      </div>
+      <div class="col-3 p-0 border-dark border">
+        <span class="px-1">{{ hand.take }}</span>
+      </div>
+    </div>
+    <div v-else-if="game.bidding == true" class="d-flex p-0">
       <div class="col-3 p-0 border-dark border">
         <span class="px-1">{{ hand.bid }}</span>
       </div>
