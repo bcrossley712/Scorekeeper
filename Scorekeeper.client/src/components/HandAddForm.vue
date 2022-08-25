@@ -14,6 +14,18 @@
         />
       </div>
       <div class="mb-3 col-4" v-if="game.bidding == true">
+        <label for="trump" class="form-label">trump</label>
+        <input
+          type="text"
+          class="form-control"
+          name="trump"
+          id="trump"
+          aria-describedby="helpId"
+          placeholder="trump..."
+          v-model="editable.trump"
+        />
+      </div>
+      <div class="mb-3 col-4" v-if="game.bidding == true">
         <label for="Take" class="form-label">Take</label>
         <input
           type="number"

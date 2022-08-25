@@ -23,7 +23,12 @@
           data-bs-target="#add-hand"
         ></i>
       </div>
-      <div class="row border-bottom border-dark">
+      <div class="row border-bottom border-dark" v-if="game.title == 'Rook'">
+        <div class="col-3 p-0" v-if="game.bidding == true">BID</div>
+        <div class="col-3 p-0" v-if="game.bidding == true">TRUMP</div>
+        <div class="col-6 text-center p-0">TAKE</div>
+      </div>
+      <div class="row border-bottom border-dark" v-else>
         <div class="col-3 p-0" v-if="game.bidding == true">BID</div>
         <div class="col-3 p-0" v-if="game.bidding == true">TAKE</div>
         <div class="col-6 text-center p-0">SCORE</div>
