@@ -20,7 +20,7 @@
             class="btn btn-warning"
             @click="archiveSession"
           >
-            Complete session?
+            Complete session?!
           </button>
           <i
             class="mdi mdi-delete text-danger selectable ms-2"
@@ -62,36 +62,40 @@
 
 
 <script>
-import { computed, ref } from "@vue/reactivity"
-import Pop from "../utils/Pop"
-import { logger } from "../utils/Logger"
-import { AppState } from "../AppState"
-import { onMounted, watchEffect } from "@vue/runtime-core"
-import { sessionsService } from "../services/SessionsService"
-import { useRoute, useRouter } from "vue-router"
+import { computed, ref } from "@vue/reactivity";
+import Pop from "../utils/Pop";
+import { logger } from "../utils/Logger";
+import { AppState } from "../AppState";
+import { onMounted, watchEffect } from "@vue/runtime-core";
+import { sessionsService } from "../services/SessionsService";
+import { useRoute, useRouter } from "vue-router";
 import { playersService } from "../services/PlayersService";
 import { handsService } from "../services/HandsService";
 import { gamesService } from "../services/GamesService";
 export default {
   setup() {
-    const route = useRoute()
-    const router = useRouter()
-    const editable = ref({})
+    const route = useRoute();
+    const router = useRouter();
+    const editable = ref({});
     watchEffect(() => {
-      editable.value = AppState.activeSession
-    })
+      editable.value = AppState.activeSession;
+    });
     onMounted(async () => {
       try {
-        AppState.activeSession = await sessionsService.getSessionById(route.params.id)
-        await playersService.getSessionsPlayers(route.params.id)
-        await handsService.getSessionsHands(route.params.id)
-        await gamesService.getGames()
+        AppState.activeSession = await sessionsService.getSessionById(
+          route.params.id
+        );
+        await playersService.getSessionsPlayers(route.params.id);
+        await handsService.getSessionsHands(route.params.id);
+        await gamesService.getGames();
       } catch (error) {
-        logger.error(error)
-        Pop.toast(error.message, 'error')
+        logger.error(error);
+        Pop.toast(error.message, "error");
       }
-      AppState.activeGame = AppState.games.find(g => g.id == AppState.activeSession.gameId)
-    })
+      AppState.activeGame = AppState.games.find(
+        (g) => g.id == AppState.activeSession.gameId
+      );
+    });
     return {
       players: computed(() => AppState.players),
       game: computed(() => AppState.activeGame),
@@ -99,46 +103,66 @@ export default {
       session: computed(() => AppState.activeSession),
       async addPlayer() {
         try {
-          playersService.addPlayer(route.params.id)
+          playersService.addPlayer(route.params.id);
         } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error')
+          logger.error(error);
+          Pop.toast(error.message, "error");
         }
       },
       async archiveSession() {
         try {
           if (AppState.activeSession?.archived == false) {
-            if (await Pop.confirm("Archive Session and declare winner?", "", "info", "Go for it!")) {
-              editable.value.archived = !AppState.activeSession.archived
-              sessionsService.archiveSession(editable.value)
-              router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })
+            if (
+              await Pop.confirm(
+                "Archive Session and declare winner?",
+                "",
+                "info",
+                "Go for it!"
+              )
+            ) {
+              editable.value.archived = !AppState.activeSession.archived;
+              sessionsService.archiveSession(editable.value);
+              router.push({
+                name: "Game",
+                params: { id: AppState.activeSession.gameId },
+              });
             }
           } else {
-            if (await Pop.confirm("Remove from archive and allow editing?", "", "info", "Yes, please.")) {
-              editable.value.archived = !AppState.activeSession.archived
-              sessionsService.archiveSession(editable.value)
+            if (
+              await Pop.confirm(
+                "Remove from archive and allow editing?",
+                "",
+                "info",
+                "Yes, please."
+              )
+            ) {
+              editable.value.archived = !AppState.activeSession.archived;
+              sessionsService.archiveSession(editable.value);
             }
           }
         } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error')
+          logger.error(error);
+          Pop.toast(error.message, "error");
         }
       },
       async deleteSession() {
         try {
-          if (await Pop.confirm('Delete Session?')) {
-            router.push({ name: "Game", params: { id: AppState.activeSession.gameId } })
-            await sessionsService.deleteSession(AppState.activeSession.id)
-            Pop.toast("Session deleted", 'success')
+          if (await Pop.confirm("Delete Session?")) {
+            router.push({
+              name: "Game",
+              params: { id: AppState.activeSession.gameId },
+            });
+            await sessionsService.deleteSession(AppState.activeSession.id);
+            Pop.toast("Session deleted", "success");
           }
         } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error')
+          logger.error(error);
+          Pop.toast(error.message, "error");
         }
-      }
-    }
-  }
-}
+      },
+    };
+  },
+};
 </script>
 
 
