@@ -22,12 +22,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-md-6">
-        <h6>Game Rules</h6>
-        <p>{{ game.scoring }}</p>
-      </div>
-
-      <div class="col-12 col-md-6 bg-dark p-3">
+      <div class="col-6">Game Rules</div>
+      <div class="col-6 bg-dark p-3">
         <h4>Game History</h4>
         <div
           @click="goTo(s.id)"

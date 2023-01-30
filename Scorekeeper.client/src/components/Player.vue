@@ -31,7 +31,7 @@
       <div class="row border-bottom border-dark" v-else>
         <div class="col-3 p-0" v-if="game.bidding == true">BID</div>
         <div class="col-3 p-0" v-if="game.bidding == true">TAKE</div>
-        <div class="col-6 text-center p-0">SCORE</div>
+        <div class="col-6 p-0">SCORE</div>
       </div>
       <div class="row">
         <div class="col-12" v-for="h in hands" :key="h.id">
